@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>DateDebut</th>
                 <th>DateFin</th>
                 <th>PrixTotal</th>
@@ -20,11 +19,10 @@
         {% for reservation in reservations %}
             {% if reservation.user.id == app.user.id %}
             <tr>
-                <td>{{ reservation.id }}</td>
                 <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reservation.prixTotal }}</td>
-                <td>{{ reservation.vehicule.reserve.id }}</td>
+                <td>{{ reservation.vehiculereserve.marque }}</td>
                 <td>
                     <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
                     <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
