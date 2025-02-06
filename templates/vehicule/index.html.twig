@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vehicule index{% endblock %}
+
+{% block body %}
+    <h1>Liste de nos véhicules</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Marque</th>
+                <th>Immatriculation</th>
+                <th>PrixJournalier</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vehicule in vehicules %}
+            <tr>
+                <td>{{ vehicule.marque }}</td>
+                <td>{{ vehicule.immatriculation }}</td>
+                <td>{{ vehicule.prixJournalier }} $/jour</td>
+                <td>
+                    <a href="{{ path('app_reservation_new', {'id': vehicule.id}) }}" class="btn btn-info">Réserver</a>
+                    <a href="{{ path('app_commentaire_new', {'id': vehicule.id}) }}" class="btn btn-info">Laisser un commentaire</a>
+                    <a href="{{ path('app_vehicule_show', {'id': vehicule.id}) }}" class="btn btn-info">Infos</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <a href="{{ path('app_vehicule_edit', {'id': vehicule.id}) }}" class="btn btn-info">Modifier</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun véhicule de disponible</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted("ROLE_ADMIN") %}
+    <a href="{{ path('app_vehicule_new') }}" class="btn btn-success">Ajouter un véhicule</a>
+    {% endif %}
+{% endblock %}
