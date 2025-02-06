@@ -3,7 +3,7 @@
 {% block title %}Reservation index{% endblock %}
 
 {% block body %}
-    <h1>Reservation index</h1>
+    <h1>Vos réservations</h1>
 
     <table class="table">
         <thead>
@@ -12,28 +12,31 @@
                 <th>DateDebut</th>
                 <th>DateFin</th>
                 <th>PrixTotal</th>
+                <th>Voiture</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for reservation in reservations %}
+            {% if reservation.user.id == app.user.id %}
             <tr>
                 <td>{{ reservation.id }}</td>
                 <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reservation.prixTotal }}</td>
+                <td>{{ reservation.vehicule.reserve.id }}</td>
                 <td>
                     <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
                     <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
                 </td>
             </tr>
+            {% endif %}
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Aucune réservation</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_reservation_new') }}">Create new</a>
 {% endblock %}

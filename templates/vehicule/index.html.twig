@@ -11,6 +11,7 @@
                 <th>Marque</th>
                 <th>Immatriculation</th>
                 <th>PrixJournalier</th>
+                <th>Disponibilité</th>
                 <th>Options</th>
             </tr>
         </thead>
@@ -20,8 +21,11 @@
                 <td>{{ vehicule.marque }}</td>
                 <td>{{ vehicule.immatriculation }}</td>
                 <td>{{ vehicule.prixJournalier }} $/jour</td>
+                <td>{{ vehicule.dispoStatus }}</td>
                 <td>
+                    {% if vehicule.dispoStatus == "Disponible" %}
                     <a href="{{ path('app_reservation_new', {'id': vehicule.id}) }}" class="btn btn-info">Réserver</a>
+                    {% endif %}
                     <a href="{{ path('app_commentaire_new', {'id': vehicule.id}) }}" class="btn btn-info">Laisser un commentaire</a>
                     <a href="{{ path('app_vehicule_show', {'id': vehicule.id}) }}" class="btn btn-info">Infos</a>
                     {% if is_granted("ROLE_ADMIN") %}

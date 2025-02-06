@@ -25,14 +25,16 @@ final class CommentaireController extends AbstractController
     }
 
     #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
+        $user = $security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaire->setCreatedAt(new \DateTimeImmutable());
+            $commentaire->setAuteur($user->getUserIdentifier);
             $entityManager->persist($commentaire);
             $entityManager->flush();
 

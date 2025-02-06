@@ -21,10 +21,6 @@ class CommentaireType extends AbstractType
                 'class' => Vehicule::class,
                 'choice_label' => 'marque',
             ])
-            ->add('auteur', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'email',
-            ])
         ;
     }
 
